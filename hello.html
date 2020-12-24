@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+        <title>My Electron App</title>
+
+        <style>
+            body {
+                padding: 50px;
+                font-size: 14px;
+                background-color: #eee;
+                font-family: sans-serif;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Hello World!</h1>
+        <button id='btn'>Click to open a photo</button>
+
+        <script>
+            const { ipcRenderer } = require( 'electron' );
+
+            document.getElementById( 'btn' ).onclick = function() {
+                ipcRenderer.send( 'app:display-image' );
+                console.log( '[message sent]', 'app:display-image' );
+            }
+        </script>
+    </body>
+</html>

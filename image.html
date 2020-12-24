@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+        <title>Image Window</title>
+
+        <style>
+            body {
+                font-size: 0;
+                background-color: #eee;
+                font-family: sans-serif;
+                text-align: center;
+                vertical-align: middle;
+                padding: 0;
+                margin: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- random image -->
+        <h3 id='loading' style="font-size: 14px;">Loading...</h3>
+        <img id='img' src='' style="display: none;">
+
+        <script>
+            const path = require( 'path' );
+            const axios = require( 'axios' );
+            const sharp = require( 'sharp' );
+
+            // fetch a random image
+            axios.get( 'https://source.unsplash.com/random', {
+                responseType: 'arraybuffer',
+            } )
+            .then( ( response ) => {
+
+                // create Buffer object
+                const buffer = Buffer.from( response.data, 'binary' );
+
+                // get output path of the image
+                const outPath = path.resolve( __dirname, 'img.jpeg' );
+
+                // resize image using sharp
+                sharp( buffer )
+                .resize( 600, 300 )
+                .toFile( outPath ) // save image
+                .then( () => {
+
+                    // display image in `img` tag
+                    document.getElementById( 'img' ).setAttribute( 'src', `file://${ outPath }` );
+                    document.getElementById( 'img' ).setAttribute( 'style', '' );
+                    document.getElementById( 'loading' ).setAttribute( 'style', 'display:none;' );
+                } );
+            } );
+        </script>
+    </body>
+</html>
