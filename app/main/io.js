@@ -54,6 +54,7 @@ exports.addFiles = ( files = [] ) => {
 exports.deleteFile = ( filename ) => {
     const filePath = path.resolve( appDir, filename );
 
+    // remove file from the file system
     if( fs.existsSync( filePath ) ) {
         fs.removeSync( filePath );
     }
@@ -63,6 +64,7 @@ exports.deleteFile = ( filename ) => {
 exports.openFile = ( filename ) => {
     const filePath = path.resolve( appDir, filename );
 
+    // open a file using default application
     if( fs.existsSync( filePath ) ) {
         open( filePath );
     }
@@ -70,10 +72,9 @@ exports.openFile = ( filename ) => {
 
 /*-----*/
 
-// watch application files
-exports.watchFiles = ( window ) => {
+// watch files from the application's storage directory
+exports.watchFiles = ( win ) => {
     chokidar.watch( appDir ).on( 'unlink', ( filepath ) => {
-        const { base } = path.parse( filepath );
-        window.webContents.send( 'app:delete-file', base );
+        win.webContents.send( 'app:delete-file', path.parse( filepath ).base );
     } );
 }

@@ -19,9 +19,6 @@ window.deleteFile = function ( itemId ) {
     const itemNode = document.getElementById( itemId );
     const filepath = itemNode.getAttribute( 'data-filepath' );
 
-    // remove DOM element
-    document.getElementById( itemId ).remove();
-
     // send event to the main thread
     ipcRenderer.send( 'app:on-file-delete', { id: itemId, filepath } );
 };

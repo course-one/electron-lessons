@@ -1,12 +1,12 @@
-const { app, BrowserWindow, ipcMain, webContents } = require( 'electron' );
+const { app, BrowserWindow, ipcMain, dialog } = require( 'electron' );
 const path = require( 'path' );
 
 // local dependencies
 const io = require( './main/io' );
-
+``
 // open a window
 const openWindow = () => {
-    const window = new BrowserWindow( {
+    const win = new BrowserWindow( {
         width: 800,
         height: 500,
         webPreferences: {
@@ -15,17 +15,19 @@ const openWindow = () => {
     } );
 
     // load `index.html` file
-    window.loadFile( path.resolve( __dirname, 'render/html/index.html' ) );
+    win.loadFile( path.resolve( __dirname, 'render/html/index.html' ) );
 
     /*-----*/
     
-    // watch files
-    io.watchFiles( window );
+    return win; // return window
 };
 
 // when app is ready, open a window
 app.on( 'ready', () => {
-    openWindow();
+    const win = openWindow();
+
+    // watch files
+    io.watchFiles( win );
 } );
 
 // when all windows are closed, quit the app
@@ -49,12 +51,26 @@ ipcMain.handle( 'app:get-files', () => {
     return io.getFiles();
 } );
 
-/*-----*/
-
 // listen to file(s) add event
 ipcMain.handle( 'app:on-file-add', ( event, files = [] ) => {
     io.addFiles( files );
 } );
+
+// open filesystem dialog to choose files
+ipcMain.handle( 'app:on-fs-dialog-open', ( event ) => {
+    const files = dialog.showOpenDialogSync( {
+        properties: [ 'openFile', 'multiSelections' ],
+    } );
+
+    io.addFiles( files.map( filepath => {
+        return {
+            name: path.parse( filepath ).base,
+            path: filepath,
+        };
+    } ) );
+} );
+
+/*-----*/
 
 // listen to file delete event
 ipcMain.on( 'app:on-file-delete', ( event, file ) => {
