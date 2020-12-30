@@ -86,6 +86,6 @@ ipcMain.on( 'app:on-file-open', ( event, file ) => {
 ipcMain.on( 'app:on-file-copy', ( event, file ) => {
     event.sender.startDrag( {
         file: file.filepath,
-        icon: path.resolve( __dirname, '../resources/paper.png' ),
+        icon: path.resolve( __dirname, './resources/paper.png' ),
     } );
 } );
