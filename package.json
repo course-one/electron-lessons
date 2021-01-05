@@ -2,11 +2,9 @@
   "name": "electron-lessons",
   "version": "1.0.0",
   "description": "A sample Electron (JS) project for Medium lessons.",
-  "main": "app/index.js",
   "scripts": {
-    "start": "electron .",
-    "sass:build": "node-sass app/scss -o app/css",
-    "sass:watch": "node-sass -w app/render/scss -o app/render/css"
+    "start": "electron-webpack dev",
+    "build": "electron-webpack"
   },
   "repository": {
     "type": "git",
@@ -20,13 +18,16 @@
   },
   "homepage": "https://github.com/course-one/electron-lessons#readme",
   "devDependencies": {
+    "@babel/preset-react": "^7.12.10",
     "electron": "^11.1.1",
-    "node-sass": "^5.0.0"
+    "electron-webpack": "^2.8.2",
+    "node-sass": "^5.0.0",
+    "sass-loader": "^10.1.0",
+    "webpack": "^4.44.2"
   },
   "dependencies": {
-    "chokidar": "^3.4.3",
-    "drag-drop": "^6.1.0",
-    "fs-extra": "^9.0.1",
-    "open": "^7.3.0"
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "source-map-support": "^0.5.19"
   }
 }
