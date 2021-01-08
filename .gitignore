@@ -105,3 +105,6 @@ dist
 
 # backup files
 *.BAK
+
+# output files
+out

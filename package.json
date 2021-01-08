@@ -6,21 +6,29 @@
   "scripts": {
     "start": "electron .",
     "sass:build": "node-sass app/scss -o app/css",
-    "sass:watch": "node-sass -w app/render/scss -o app/render/css"
+    "sass:watch": "node-sass -w app/render/scss -o app/render/css",
+    "postinstall": "electron-builder install-app-deps",
+    "pack": "electron-builder -mwl",
+    "publish": "electron-builder --publish always"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/course-one/electron-lessons.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Uday Hiwarale",
+    "email": "thatisuday@gmail.com",
+    "url": "https://thatisuday.com"
+  },
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/course-one/electron-lessons/issues"
   },
   "homepage": "https://github.com/course-one/electron-lessons#readme",
   "devDependencies": {
     "electron": "^11.1.1",
+    "electron-builder": "^22.9.1",
     "node-sass": "^5.0.0"
   },
   "dependencies": {
