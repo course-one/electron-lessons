@@ -1,9 +1,13 @@
 const { app, BrowserWindow, ipcMain, dialog } = require( 'electron' );
 const path = require( 'path' );
+const { autoUpdater } = require( 'electron-updater' );
 
 // local dependencies
 const io = require( './main/io' );
-``
+
+// check for updates
+autoUpdater.checkForUpdatesAndNotify();
+
 // open a window
 const openWindow = () => {
     const win = new BrowserWindow( {

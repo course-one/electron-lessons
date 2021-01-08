@@ -1,6 +1,6 @@
 {
   "name": "electron-lessons",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A sample Electron (JS) project for Medium lessons.",
   "main": "app/index.js",
   "scripts": {
@@ -8,8 +8,8 @@
     "sass:build": "node-sass app/scss -o app/css",
     "sass:watch": "node-sass -w app/render/scss -o app/render/css",
     "postinstall": "electron-builder install-app-deps",
-    "pack": "electron-builder -mwl",
-    "publish": "electron-builder --publish always"
+    "pack": "electron-builder -mwl --publish never",
+    "publish": "electron-builder -mwl --publish always"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
   "devDependencies": {
     "electron": "^11.1.1",
     "electron-builder": "^22.9.1",
+    "electron-updater": "^4.3.5",
     "node-sass": "^5.0.0"
   },
   "dependencies": {
